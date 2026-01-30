@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SMILECAD - Laboratorio Dental Digital</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+</head>
+
+<body>
+  <!-- Floating Header -->
+  <header class="header">
+    <div class="header-inner">
+      <div class="logo">
+        <a href="#"><img src="/logo.png" alt="SMILECAD Logo"></a>
+      </div>
+      <nav class="nav">
+        <ul class="nav-list">
+          <li><a href="#inicio">Inicio</a></li>
+          <li><a href="#curso-exocad">Curso Exocad</a></li>
+          <li><a href="#curso-b4d">Curso B4D</a></li>
+          <!-- Hidden on smaller screens usually, but added for completeness -->
+          <!-- <li><a href="#nosotros">Nosotros</a></li> -->
+        </ul>
+      </nav>
+      <div class="header-actions" style="display:flex; align-items:center; gap:16px;">
+        <a href="#contacto" class="header-cta">
+          App <i class="fas fa-mobile-alt"></i>
+        </a>
+        <button class="mobile-toggle"><i class="fas fa-bars"></i></button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Dark Hero Section -->
+  <section id="inicio" class="hero">
+    <div class="hero-container">
+      <div class="hero-text">
+        <h1>
+          <span class="font-light">Conviértete en un experto en</span>
+          <span class="text-gradient" style="font-size: 1.0em;">EXOCAD y BLENDER FOR DENTAL</span>
+          <span class="font-light" style="margin-top: 2px;">con SMILECAD</span>
+        </h1>
+        <p>Conviértete en un experto en Cad Cam y domina todas las funciones para crear diseños de alta precisión.</p>
+        <div class="hero-actions">
+          <a href="#curso-exocad" class="btn btn-white">Curso EXOCAD</a>
+          <a href="#curso-b4d" class="btn btn-white">Curso B4D</a>
+
+
+
+        </div>
+      </div>
+      <div class="hero-image">
+        <img src="/metallic-teeth.png" alt="Diseño Dental SMILECAD">
+      </div>
+    </div>
+  </section>
+
+
+  <!-- Exocad Course Section -->
+  <section id="curso-exocad" class="course-section">
+    <div class="container course-layout">
+      <!-- Text Content -->
+      <div class="course-info">
+        <span class="badge-new">Curso Destacado</span>
+        <h2>Curso Completo en Exocad</h2>
+        <p class="course-description">
+          Descubre nuestro curso de formación en Exocad diseñado para todos los niveles: principiante, medio y avanzado.
+          Aprende a dominar las herramientas digitales más innovadoras para el diseño dental y lleva tus habilidades al
+          siguiente nivel.
+        </p>
+        <ul class="course-benefits">
+          <li><i class="fas fa-check"></i> Formación integral (Principiante a Experto)</li>
+          <li><i class="fas fa-check"></i> Libro</li>
+          <li><i class="fas fa-check"></i> Metodología práctica</li>
+          <li><i class="fas fa-check"></i> Acceso vitalicio a nuestra App</li>
+          <li><i class="fas fa-check"></i> Acceso a videos y trabajos con STL para prácticas tras formación (vía App)
+          </li>
+          <li><i class="fas fa-check"></i> Diploma Acreditativo</li>
+          <li><i class="fas fa-check"></i> Acceso a grupo para resolver dudas tras la formación</li>
+          <li><i class="fas fa-check"></i> Acceso a bolsa de trabajo para laboratorios</li>
+          <li style="margin-top: 10px; color: #3b82f6; font-weight: bold;"><i class="fas fa-clock"></i> Horario: de
+            lunes a miércoles, de 4:30 a 20:30 hrs</li>
+        </ul>
+      </div>
+
+      <!-- Pricing Card -->
+      <div class="course-card">
+        <h3>Formación Completa - 48h</h3>
+        <p>Aprende a dominar todas las herramientas y técnicas de Exocad en un curso completo que abarca desde la
+          formación inicial hasta el avanzado.</p>
+
+        <div class="price-tag">1200€</div>
+
+        <button class="btn btn-primary btn-block open-registration-trigger" data-course="Exocad">Inscribirme</button>
+        <a href="#" id="open-course-modal" class="link-more">Más información <i class="fas fa-arrow-right"></i></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Blender For Dental Course Section -->
+  <section id="curso-b4d" class="course-section" style="background-color: #050505;">
+    <div class="container course-layout">
+      <!-- Text Content -->
+      <div class="course-info">
+        <span class="badge-new">Nuevo Curso</span>
+        <h2>Curso Blender For Dental</h2>
+        <p class="course-description">
+          Descubre nuestro curso de formación en B4D Segmentaciones de barras primarias y prótesis secundarias, en donde
+          maximizaremos tiempos con una alta precisión en nuestros trabajos.
+        </p>
+        <ul class="course-benefits">
+          <li><i class="fas fa-check"></i> Libro</li>
+          <li><i class="fas fa-check"></i> Metodología práctica</li>
+          <li><i class="fas fa-check"></i> Acceso a videos y trabajos con STL para prácticas tras formación (vía App)
+          </li>
+          <li><i class="fas fa-check"></i> Diploma Acreditativo</li>
+          <li style="margin-top: 10px; color: #3b82f6; font-weight: bold;"><i class="fas fa-clock"></i> Horario: Jueves
+            y Viernes, de 4:30 a 20:30 hrs</li>
+        </ul>
+      </div>
+
+      <!-- Pricing Card -->
+      <div class="course-card">
+        <h3>Formación ibar de B4D - 8h</h3>
+        <p>Aprende a dominar todas las herramientas y técnicas de Blender For Dental</p>
+
+        <div class="price-tag">300€</div>
+
+        <button class="btn btn-primary btn-block open-registration-trigger" data-course="B4D">Inscribirme</button>
+        <a href="#" id="open-b4d-modal" class="link-more">Más información <i class="fas fa-arrow-right"></i></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials Section -->
+  <section id="testimonios" class="testimonials">
+    <div class="container">
+      <div class="section-header">
+        <h2>Lo que dicen nuestros alumnos</h2>
+
+      </div>
+      <div class="testimonials-grid" id="testimonials-grid">
+        <!-- Content injected by JS -->
+      </div>
+      <div style="text-align: center; margin-top: 40px;">
+        <button id="load-more-reviews" class="btn btn-outline-white">Ver más reseñas</button>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- Join Community Section -->
+  <section class="community-section">
+    <div class="container" style="text-align: center;">
+      <!-- Logo -->
+      <img src="/smilecad-academy-logo.png" alt="SmileCad Academy"
+        style="max-width: 300px; margin-bottom: 30px; display: block; margin-left: auto; margin-right: auto;">
+
+      <h2 style="font-size: 3rem; font-weight:600; color: white; margin-bottom: 20px;">Únete a nuestra comunidad</h2>
+
+      <div class="cta-grid">
+        <div class="cta-item">
+          <div class="cta-icon"><i class="fas fa-circle-check"></i></div>
+          <h3>PosCurso: sigue Aprendiendo</h3>
+          <p>Sigue practicando y recordando el curso con nuestra App</p>
+        </div>
+        <div class="cta-item">
+          <div class="cta-icon"><i class="fas fa-user-group"></i></div>
+          <h3>Formación personalizada</h3>
+          <p>Acompañamiento en cada etapa del proceso de la formación.</p>
+        </div>
+        <div class="cta-item">
+          <div class="cta-icon"><i class="fas fa-clock"></i></div>
+          <h3>Eficiencia garantizada</h3>
+          <p>Optimización de tiempos.</p>
+        </div>
+      </div>
+
+
+    </div>
+  </section>
+
+  <!-- Dark Contact/Footer Section -->
+  <section id="contacto" class="dark-contact">
+    <div class="container contact-grid">
+      <div class="contact-left">
+        <p style="opacity:0.6; font-weight:600; margin-bottom:16px;">¡Hablemos!</p>
+        <h2>¿Interesado en algún curso?</h2>
+        <div style="margin-top:40px;">
+          <p style="font-size:1.1rem;">Lunes a viernes, de 9:00 a 18:00</p>
+          <p style="opacity:0.6;">Estamos disponibles para resolver tus dudas.</p>
+          <a href="tel:+34607703199" class="btn btn-primary"
+            style="background-color: var(--primary); margin-top: 25px;">
+            <i class="fas fa-phone"></i> Contáctanos ahora
+          </a>
+        </div>
+      </div>
+      <div class="contact-right">
+        <div style="margin-bottom:40px;">
+          <p style="font-size:0.8rem; letter-spacing:1px; text-transform:uppercase; margin-bottom:12px; opacity:0.6;">
+            Envíanos un mensaje</p>
+          <a href="mailto:smilecad@gmail.com" style="font-size:1.1rem; color:white;">smilecad@gmail.com</a>
+        </div>
+
+        <div style="display: flex; flex-direction: column; align-items: center; width: fit-content;">
+          <p
+            style="font-size:0.8rem; letter-spacing:1px; text-transform:uppercase; margin-bottom:12px; opacity:0.6; width: 100%; text-align: center;">
+            Síguenos en</p>
+          <div class="contact-links" style="display:flex; font-size: 1.5rem; width: 100%; justify-content: center;">
+            <a href="https://www.instagram.com/academysmilecad/" target="_blank" rel="noopener noreferrer"
+              aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+          </div>
+        </div>
+      </div>
+      <div class="contact-map">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d50841.92131230114!2d-3.637311740636306!3d37.17441319227653!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd71fc8976b00561%3A0xc47e30773d2f9390!2sGranada%2C%20Espa%C3%B1a!5e0!3m2!1ses!2ses!4v1710000000000!5m2!1ses!2ses"
+          allowfullscreen="" loading="lazy"></iframe>
+      </div>
+    </div>
+  </section>
+
+  <!-- Bottom Footer -->
+  <footer class="footer">
+    <div class="container">
+      <p class="copyright">© SMILECAD 2026, Todos los derechos reservados.</p>
+    </div>
+  </footer>
+
+  <!-- Course Syllabus Modal -->
+  <div id="course-modal" class="modal-overlay" style="display: none;">
+    <div class="modal-content">
+      <button class="modal-close">&times;</button>
+      <div class="modal-header">
+        <h3>Temario del Curso</h3>
+        <p>Domina todas estas técnicas con nuestra formación</p>
+      </div>
+      <div class="modal-body">
+        <ul class="syllabus-list">
+          <li>Puentes Cementados simples y complejos</li>
+          <li>Coronas Monolíticas y Caracterizaciones en exocad</li>
+          <li>Marylands</li>
+          <li>Carillas</li>
+          <li>Incrustaciones/Perno Muñón</li>
+          <li>Barras</li>
+          <li>Híbridas</li>
+          <li>Integraciones y ediciones avanzadas</li>
+          <li>Diseños Estéticos con Reducciones Cut-Back</li>
+          <li>Tallado digital Provisionales Digitales</li>
+          <li>Modelado Digital Anatómico (encerados diagnóstico)</li>
+          <li>Diseño de Sonrisa en 2D y 3D</li>
+          <li>Creación de Modelos Digitales e Impresión 3D</li>
+          <li>Diseño de Rehabilitaciones totales sobre implantes</li>
+          <li>Preparación línea marginal de modelos digitales (Protocolo Privado)</li>
+          <li>Subestructuras o Secundarias (barra primaria de titanio y secundaria de zirconio)</li>
+          <li>Férulas de Descarga</li>
+          <li>Cubeta Individual</li>
+          <li>Trucos de Exocad</li>
+        </ul>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-primary open-registration-trigger" data-course="Exocad">Inscribirme Ahora</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Blender For Dental Syllabus Modal -->
+  <div id="b4d-modal" class="modal-overlay" style="display: none;">
+    <div class="modal-content">
+      <button class="modal-close">&times;</button>
+      <div class="modal-header">
+        <h3>Temario Blender For Dental</h3>
+        <p>Formación especializada de 8h</p>
+      </div>
+      <div class="modal-body">
+        <ul class="syllabus-list">
+          <li>Diseño de Prótesis Híbridas completas sobre implantes en exocad</li>
+          <li>Fundamentos principales de Blender for Dental</li>
+          <li>Diseño y customización de las barras primarias</li>
+          <li>Segmentación barra y supra. Diferentes protocolos: Mód. IBar y Mód. Model designer</li>
+          <li>Segmentación barra y supra, sobre casos cementados</li>
+        </ul>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-primary open-registration-trigger" data-course="B4D">Inscribirme Ahora</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Registration Modal -->
+  <div id="registration-modal" class="modal-overlay" style="display: none;">
+    <div class="modal-content">
+      <button class="modal-close">&times;</button>
+
+      <!-- Form Step -->
+      <div id="registration-form-view">
+        <div class="modal-header">
+          <h3>Reserva tu Plaza</h3>
+          <p>Rellena tus datos para el <span id="selected-course-display"
+              style="font-weight: bold; color: var(--primary);"></span></p>
+        </div>
+        <div class="modal-body">
+          <form id="inscription-form">
+            <div class="form-group">
+              <label for="name">Nombre Completo</label>
+              <input type="text" id="name" required placeholder="Tu nombre">
+            </div>
+            <div class="form-group">
+              <label for="email">Correo Electrónico</label>
+              <input type="email" id="email" required placeholder="tu@email.com">
+            </div>
+            <div class="form-group">
+              <label for="phone">Número Móvil</label>
+              <input type="tel" id="phone" required placeholder="+34 600 000 000">
+            </div>
+            <!-- Hidden fields for processed data -->
+            <div class="form-group" style="display: none;">
+              <label for="course-select">Curso Seleccionado</label>
+              <select id="course-select" text-align="center">
+                <option value="" disabled selected>Selecciona un curso</option>
+                <option value="Exocad">Curso Completo Exocad</option>
+                <option value="B4D">Curso Blender For Dental</option>
+              </select>
+            </div>
+            <div class="form-group" style="display: none;">
+              <select id="month">
+                <option value="Consultar" selected>Consultar</option>
+              </select>
+            </div>
+            <p class="payment-note">
+              * Se requiere un pago de <strong>100€</strong> en concepto de reserva. El resto se abonará al inicio de la
+              formación.
+            </p>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" form="inscription-form" class="btn btn-primary btn-block">Reservar Plaza</button>
+        </div>
+      </div>
+
+      <!-- Bizum Payment Gateway Step -->
+      <div id="payment-view" style="display: none;">
+        <div class="bizum-header">
+          <img src="/bizum-logo.png" alt="Bizum" class="bizum-logo-img">
+          <div class="bizum-amount">100,00€</div>
+        </div>
+
+        <div class="modal-body">
+          <div class="checkout-details">
+            <div class="checkout-row">
+              <span class="label">Concepto:</span>
+              <span class="value" id="bizum-concept">Reserva Curso Exocad</span>
+            </div>
+            <div class="checkout-row">
+              <span class="label">Destinatario:</span>
+              <span class="value">SMILECAD ACADEMY</span>
+            </div>
+          </div>
+
+          <div class="bizum-instructions">
+            <p>Realiza el pago de la reserva a través de Bizum:</p>
+            <div class="bizum-phone-box">
+              <span id="bizum-number" class="phone-number">607 703 199</span>
+              <button id="copy-bizum" class="btn-copy" title="Copiar número">
+                <i class="fas fa-copy"></i>
+              </button>
+            </div>
+            <p class="small-note">Una vez realizado, pulsa el botón de abajo para confirmar.</p>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button class="btn btn-biz-primary btn-block" id="confirm-bizum-btn">
+            Confirmar Pago Bizum
+          </button>
+          <button class="btn-link-gray btn-block modal-close-btn">Cancelar</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Floating WhatsApp Button -->
+  <a href="https://wa.me/34607703199" class="whatsapp-float" target="_blank" rel="noopener noreferrer">
+    <i class="fab fa-whatsapp"></i>
+  </a>
+
+  <script type="module" src="/src/main.js"></script>
+</body>
+
+</html>
