@@ -22,12 +22,24 @@ const setupMobileMenu = () => {
         nav.style.top = '100%';
         nav.style.left = '0';
         nav.style.right = '0';
-        nav.style.background = 'rgba(255, 255, 255, 0.95)';
-        nav.style.padding = '20px';
-        nav.style.borderBottomLeftRadius = '20px';
-        nav.style.borderBottomRightRadius = '20px';
-        nav.style.boxShadow = '0 10px 15px -3px rgba(0, 0, 0, 0.1)';
-        toggleBtn.innerHTML = '<i class="fas fa-times"></i>';
+        nav.style.background = 'rgba(0, 0, 0, 0.95)'; // Dark background
+        nav.style.padding = '30px';
+        nav.style.borderBottomLeftRadius = '24px';
+        nav.style.borderBottomRightRadius = '24px';
+        nav.style.boxShadow = '0 20px 40px rgba(0,0,0,0.4)';
+        nav.style.border = '1px solid rgba(255,255,255,0.1)';
+        nav.style.gap = '20px'; // Space between links
+
+        // Style links specifically for mobile
+        navLinks.forEach(link => {
+          link.style.color = 'white';
+          link.style.fontSize = '1.2rem';
+          link.style.textAlign = 'center';
+          link.style.padding = '10px';
+          link.style.borderBottom = '1px solid rgba(255,255,255,0.05)';
+        });
+
+        toggleBtn.innerHTML = '<i class="fas fa-times" style="color:white;"></i>'; // Ensure X is visible if header is dark
       }
     });
 
