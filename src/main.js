@@ -5,7 +5,42 @@ console.log('Digital Smile CAD Clone Loaded');
 // Mobile Menu Toggle
 const setupMobileMenu = () => {
   const header = document.querySelector('.header');
-  // Logic to be added when HTML structure exists
+  const toggleBtn = document.querySelector('.mobile-toggle');
+  const nav = document.querySelector('.nav-list');
+  const navLinks = document.querySelectorAll('.nav-list a');
+
+  if (toggleBtn && nav) {
+    toggleBtn.addEventListener('click', () => {
+      // Toggle class on nav list
+      if (nav.style.display === 'flex') {
+        nav.style.display = 'none';
+        toggleBtn.innerHTML = '<i class="fas fa-bars"></i>';
+      } else {
+        nav.style.display = 'flex';
+        nav.style.flexDirection = 'column';
+        nav.style.position = 'absolute';
+        nav.style.top = '100%';
+        nav.style.left = '0';
+        nav.style.right = '0';
+        nav.style.background = 'rgba(255, 255, 255, 0.95)';
+        nav.style.padding = '20px';
+        nav.style.borderBottomLeftRadius = '20px';
+        nav.style.borderBottomRightRadius = '20px';
+        nav.style.boxShadow = '0 10px 15px -3px rgba(0, 0, 0, 0.1)';
+        toggleBtn.innerHTML = '<i class="fas fa-times"></i>';
+      }
+    });
+
+    // Close menu when a link is clicked
+    navLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        if (window.innerWidth <= 1024) { // Only on mobile/tablet
+          nav.style.display = 'none';
+          toggleBtn.innerHTML = '<i class="fas fa-bars"></i>';
+        }
+      });
+    });
+  }
 };
 
 // Generate Testimonials
