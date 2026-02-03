@@ -910,6 +910,7 @@ h3 {
   opacity: 0;
   visibility: hidden;
   transition: all 0.3s ease;
+  padding: 20px;
 }
 
 .modal-overlay.active {
@@ -920,9 +921,9 @@ h3 {
 .modal-content {
   background: var(--dark-surface);
   border: 1px solid rgba(255, 255, 255, 0.1);
-  width: 90%;
+  width: 95%;
   max-width: 600px;
-  max-height: 85vh;
+  max-height: 95vh;
   border-radius: 20px;
   padding: 0;
   position: relative;
@@ -1137,20 +1138,136 @@ h3 {
   font-weight: 500;
 }
 
-.bizum-instructions {
+.payment-methods-wrapper {
+  margin-top: 25px;
   text-align: center;
+}
+
+.payment-step {
+  position: relative;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 16px;
+  padding: 24px 20px;
+  margin-bottom: 20px;
+  animation: slideUp 0.4s ease-out;
+}
+
+.step-badge {
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--secondary);
+  color: white;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.method-title {
+  font-weight: 600;
+  margin-bottom: 15px;
   color: white;
 }
 
-.bizum-phone-box {
-  background: #111;
-  border: 1px solid #00aae4;
+.bizum-phone-box.professional {
+  background: #000;
+  border: 2px solid #00aae4;
+  padding: 12px 30px;
   border-radius: 50px;
-  padding: 10px 20px;
   display: inline-flex;
   align-items: center;
-  gap: 15px;
-  margin: 15px 0;
+  gap: 20px;
+  margin: 10px 0;
+  box-shadow: 0 0 20px rgba(0, 170, 228, 0.2);
+}
+
+.phone-number {
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: #00aae4;
+  letter-spacing: 1px;
+}
+
+.btn-copy-lg {
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.btn-copy-lg:hover {
+  transform: scale(1.1);
+  color: #00aae4;
+}
+
+.copy-toast {
+  color: #10b981;
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-top: 10px;
+}
+
+.small-text {
+  font-size: 0.9rem;
+  color: #9ca3af;
+  margin-bottom: 15px;
+}
+
+.qr-placeholder {
+  font-size: 3rem;
+  color: rgba(255, 255, 255, 0.1);
+  margin: 20px 0;
+}
+
+.payment-notice {
+  background: rgba(251, 191, 36, 0.05);
+  border: 1px solid rgba(251, 191, 36, 0.2);
+  padding: 15px;
+  border-radius: 12px;
+  color: #fbbf24;
+  font-size: 0.85rem;
+  margin-top: 20px;
+}
+
+/* Visibility Logic */
+.desktop-only {
+  display: block;
+}
+
+.mobile-only {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .desktop-only {
+    display: none;
+  }
+
+  .mobile-only {
+    display: block;
+  }
+
+  .phone-number {
+    font-size: 1.5rem;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .bizum-phone-box .phone-number {

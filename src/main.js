@@ -188,6 +188,45 @@ document.addEventListener('DOMContentLoaded', () => {
   // Move these to shared scope
   const courseSelect = document.getElementById('course-select');
   const courseDisplay = document.getElementById('selected-course-display');
+  const monthSelect = document.getElementById('month');
+
+  // Dynamic Month Generator
+  const populateMonths = () => {
+    if (!monthSelect) return;
+
+    const now = new Date();
+    const currentMonth = now.getMonth();
+    const currentYear = now.getFullYear();
+
+    const monthNames = [
+      "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
+      "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"
+    ];
+
+    monthSelect.innerHTML = ''; // Clear existing
+
+    // Generate next 12 months (starting from NEXT month)
+    for (let i = 1; i <= 12; i++) {
+      const date = new Date(currentYear, currentMonth + i, 1);
+      const monthIndex = date.getMonth();
+      const year = date.getFullYear();
+      const monthName = monthNames[monthIndex];
+      const label = `${monthName} ${year}`;
+
+      const option = document.createElement('option');
+      option.value = label;
+      option.textContent = label;
+      monthSelect.appendChild(option);
+    }
+
+    // Add "Consultar" at the end
+    const consultOption = document.createElement('option');
+    consultOption.value = "Consultar";
+    consultOption.textContent = "Consultar disponibilidad";
+    monthSelect.appendChild(consultOption);
+  };
+
+  populateMonths();
 
   if (regModal && regOpenBtns.length > 0 && regForm && formView && paymentView) {
     const openRegModal = (e) => {
@@ -293,23 +332,59 @@ document.addEventListener('DOMContentLoaded', () => {
       }, 50);
     });
 
-    // Copy Bizum Number Logic
-    const copyBtn = document.getElementById('copy-bizum');
-    if (copyBtn) {
-      copyBtn.addEventListener('click', () => {
-        const number = "607703199";
-        navigator.clipboard.writeText(number).then(() => {
-          const icon = copyBtn.querySelector('i');
-          icon.classList.remove('fa-copy');
-          icon.classList.add('fa-check');
-          copyBtn.style.color = "#00aae4";
+    // Copy Bizum Number Logic (Shared helper)
+    const copyNumber = (button, visualFeedback = null) => {
+      const number = "607703199";
+      navigator.clipboard.writeText(number).then(() => {
+        if (visualFeedback) {
+          visualFeedback.style.display = 'block';
+          setTimeout(() => visualFeedback.style.display = 'none', 3000);
+        }
+
+        const icon = button.querySelector('i');
+        if (icon) {
+          const originalClass = icon.className;
+          icon.className = 'fas fa-check';
+          button.style.color = "#10b981";
 
           setTimeout(() => {
-            icon.classList.remove('fa-check');
-            icon.classList.add('fa-copy');
-            copyBtn.style.color = "";
+            icon.className = originalClass;
+            button.style.color = "";
           }, 2000);
+        }
+      });
+    };
+
+    // Simplified Bizum Flow
+    const copyBtnMain = document.getElementById('copy-bizum-main');
+    const copyToast = document.getElementById('copy-toast');
+    const openBankBtn = document.getElementById('open-bank-btn');
+
+    if (copyBtnMain) {
+      copyBtnMain.addEventListener('click', () => {
+        const number = "607703199";
+        navigator.clipboard.writeText(number).then(() => {
+          if (copyToast) {
+            copyToast.style.display = 'block';
+            setTimeout(() => copyToast.style.display = 'none', 3000);
+          }
+
+          const icon = copyBtnMain.querySelector('i');
+          icon.className = 'fas fa-check';
+          setTimeout(() => { icon.className = 'fas fa-copy'; }, 2000);
         });
+      });
+    }
+
+    if (openBankBtn) {
+      openBankBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        // There is no single universal Bizum app, but we can try to hint 
+        // Or simply remind them to open their usual bank app.
+        alert("¡Número copiado! Ahora abre la aplicación de tu banco (Santander, BBVA, CaixaBank, etc.) y pega el número en la sección de Bizum.");
+
+        // Try common bank schemes (optional, many banks differ)
+        window.location.href = "intent://#Intent;scheme=bizum;package=es.redsys.bizum;end";
       });
     }
 
@@ -338,9 +413,11 @@ document.addEventListener('DOMContentLoaded', () => {
           });
 
           if (response.ok) {
-            alert("¡Reserva confirmada! Hemos enviado los detalles a academysmilecad@gmail.com. En breve nos pondremos en contacto contigo.");
+            console.log('FormSubmit success:', await response.json());
+            alert(`¡Reserva confirmada! Hemos enviado los detalles de tu pago y tus datos a academysmilecad@gmail.com. En breve nos pondremos en contacto contigo.`);
             closeRegModal();
           } else {
+            console.error('FormSubmit Error:', response.status, response.statusText);
             throw new Error("Error en el envío");
           }
         } catch (error) {
