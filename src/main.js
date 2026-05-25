@@ -341,12 +341,13 @@ document.addEventListener('DOMContentLoaded', () => {
           alert(`¡Reserva solicitada con éxito!\nHemos recibido tus datos para el ${formData.Curso} (${formData.Mes}). En breve nos pondremos en contacto contigo por correo electrónico o teléfono para indicarte los pasos a seguir.`);
           closeRegModal();
         } else {
-          console.error('FormSubmit Error:', response.status, response.statusText);
-          throw new Error("Error en el envío");
+          const errText = await response.text();
+          console.error('FormSubmit Error:', response.status, errText);
+          throw new Error(`Servidor retornó ${response.status}: ${errText}`);
         }
       } catch (error) {
         console.error("Email Error:", error);
-        alert("Hubo un problema al enviar la solicitud de reserva. Por favor, ponte en contacto con nosotros directamente por teléfono o WhatsApp.");
+        alert(`Error técnico: ${error.message}\n\nHubo un problema al enviar la solicitud de reserva. Por favor, ponte en contacto con nosotros directamente por teléfono o WhatsApp.`);
         closeRegModal();
       } finally {
         if (submitBtn) {
