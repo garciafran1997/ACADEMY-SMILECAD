@@ -137,6 +137,14 @@ document.addEventListener('DOMContentLoaded', () => {
   setupMobileMenu();
   generateTestimonials();
 
+  // Check if redirected from a successful reservation
+  const url = new URL(window.location.href);
+  if (url.searchParams.has('reserved')) {
+    alert("¡Reserva solicitada con éxito!\nHemos recibido tus datos. En breve nos pondremos en contacto contigo por correo electrónico o teléfono para indicarte los pasos a seguir.");
+    url.searchParams.delete('reserved');
+    window.history.replaceState({}, document.title, url.pathname + url.search);
+  }
+
   // Modal Logic (Generic function for reusability)
   const setupModal = (modalId, openBtnId) => {
     const modal = document.getElementById(modalId);
@@ -289,12 +297,12 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Handle Form Submission
-    regForm.addEventListener('submit', async (e) => {
-      e.preventDefault();
+    regForm.addEventListener('submit', (e) => {
       console.log('Form submission attempted');
 
       // Ensure form is valid and show validation UI if not
       if (!regForm.checkValidity()) {
+        e.preventDefault();
         console.warn('Form validation failed');
         regForm.reportValidity();
         return;
@@ -304,57 +312,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
       // Find submit button for loading state
       const submitBtn = regModal.querySelector('button[type="submit"]');
-      const originalText = submitBtn ? submitBtn.textContent : "Reservar Plaza";
-
       if (submitBtn) {
         submitBtn.textContent = "Procesando reserva...";
         submitBtn.disabled = true;
       }
 
-      // Capture form data
-      const formData = {
-        Nombre: regForm.name.value,
-        Email: regForm.email.value,
-        Telefono: regForm.phone.value,
-        Curso: courseSelect.options[courseSelect.selectedIndex].text,
-        Mes: document.getElementById('month').value
-      };
-
-      try {
-        // Send to FormSubmit.co
-        const response = await fetch("https://formsubmit.co/ajax/academysmilecad@gmail.com", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            "Accept": "application/json"
-          },
-          body: JSON.stringify({
-            subject: `NUEVA RESERVA: ${formData.Curso}`,
-            ...formData,
-            _honey: "", // Honeypot to prevent spam
-            _template: "table"
-          })
-        });
-
-        if (response.ok) {
-          console.log('FormSubmit success:', await response.json());
-          alert(`¡Reserva solicitada con éxito!\nHemos recibido tus datos para el ${formData.Curso} (${formData.Mes}). En breve nos pondremos en contacto contigo por correo electrónico o teléfono para indicarte los pasos a seguir.`);
-          closeRegModal();
-        } else {
-          const errText = await response.text();
-          console.error('FormSubmit Error:', response.status, errText);
-          throw new Error(`Servidor retornó ${response.status}: ${errText}`);
-        }
-      } catch (error) {
-        console.error("Email Error:", error);
-        alert(`Error técnico: ${error.message}\n\nHubo un problema al enviar la solicitud de reserva. Por favor, ponte en contacto con nosotros directamente por teléfono o WhatsApp.`);
-        closeRegModal();
-      } finally {
-        if (submitBtn) {
-          submitBtn.textContent = originalText;
-          submitBtn.disabled = false;
-        }
+      // Set dynamic subject for FormSubmit
+      const subjectInput = document.getElementById('form-subject');
+      if (subjectInput && courseSelect) {
+        const selectedCourse = courseSelect.options[courseSelect.selectedIndex].text;
+        subjectInput.value = `NUEVA RESERVA: ${selectedCourse}`;
       }
+      
+      // The form will submit naturally to FormSubmit.co and redirect to our _next URL.
     });
   }
 });
