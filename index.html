@@ -5,17 +5,17 @@
   <meta charset="UTF-8" />
   <link rel="icon" type="image/png" href="/logo.png" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Curso Exocad en Granada y Online | SMILECAD - Laboratorio Dental Digital</title>
+  <title>AcademySmileCad - Curso Exocad en Granada y Online</title>
   <meta name="description"
-    content="Aprende Exocad y Blender for Dental en Granada con SMILECAD. Cursos presenciales y online de diseño dental CAD/CAM para todos los niveles. ¡Reserva tu plaza!" />
+    content="Aprende Exocad y Blender for Dental en Granada con AcademySmileCad. Cursos presenciales y online de diseño dental CAD/CAM para todos los niveles. ¡Reserva tu plaza!" />
   <meta name="keywords"
-    content="curso exocad, curso exocad granada, aprender exocad, diseño dental, cad cam dental, blender for dental, smilecad" />
+    content="curso exocad, curso exocad granada, aprender exocad, diseño dental, cad cam dental, blender for dental, academysmilecad" />
 
   <!-- SEO & Social Media -->
   <link rel="canonical" href="https://academysmilecad.es/" />
-  <meta property="og:title" content="Curso Exocad y Blender for Dental | Academy Smilecad" />
+  <meta property="og:title" content="Curso Exocad y Blender for Dental | AcademySmileCad" />
   <meta property="og:description"
-    content="Formación profesional en diseño dental CAD/CAM en Granada. Cursos intensivos de Exocad y B4D." />
+    content="Formación profesional en diseño dental CAD/CAM en Granada. Cursos intensivos de Exocad y B4D con AcademySmileCad." />
   <meta property="og:image" content="https://academysmilecad.es/logo.png" />
   <meta property="og:url" content="https://academysmilecad.es/" />
   <meta property="og:type" content="website" />
@@ -353,10 +353,7 @@
                 <!-- Populated dynamically via JS -->
               </select>
             </div>
-            <p class="payment-note">
-              * Se requiere un pago de <strong>100€</strong> en concepto de reserva. El resto se abonará al inicio de la
-              formación.
-            </p>
+
           </form>
         </div>
         <div class="modal-footer">
@@ -364,75 +361,6 @@
         </div>
       </div>
 
-      <!-- Bizum Payment Gateway Step -->
-      <div id="payment-view" style="display: none;">
-        <div class="bizum-header">
-          <img src="/bizum-logo.png" alt="Bizum" class="bizum-logo-img">
-          <div class="bizum-amount">100,00€</div>
-        </div>
-
-        <div class="modal-body">
-          <div class="checkout-details">
-            <div class="checkout-row">
-              <span class="label">Concepto:</span>
-              <span class="value" id="bizum-concept">Reserva Curso Exocad</span>
-            </div>
-            <div class="checkout-row">
-              <span class="label">Importe único:</span>
-              <span class="value">100,00€</span>
-            </div>
-          </div>
-
-          <!-- Smart Payment Interface -->
-          <div class="payment-methods-wrapper">
-
-            <!-- STEP 1: Copy Number -->
-            <div class="payment-step">
-              <span class="step-badge">Paso 1</span>
-              <p class="method-title">Copia el número del receptor</p>
-              <div class="bizum-phone-box professional">
-                <span id="bizum-number" class="phone-number">607 703 199</span>
-                <button id="copy-bizum-main" class="btn-copy-lg" title="Copiar número">
-                  <i class="fas fa-copy"></i>
-                </button>
-              </div>
-              <div id="copy-toast" class="copy-toast" style="display:none;">
-                <i class="fas fa-check-circle"></i> ¡Número copiado!
-              </div>
-            </div>
-
-            <!-- STEP 2: Instructions based on device -->
-            <div class="payment-step">
-              <span class="step-badge">Paso 2</span>
-              <p class="method-title">Realiza el pago en tu banco</p>
-
-              <!-- Desktop: QR for number visibility (avoiding direct call) -->
-              <div class="desktop-only text-center">
-                <p class="small-text">Abre Bizum y envía 100€ al número superior.</p>
-                <div class="qr-placeholder">
-                  <i class="fas fa-mobile-screen-button"></i>
-                </div>
-              </div>
-
-              <!-- Mobile: Open Bank Button -->
-              <div class="mobile-only">
-                <p class="small-text">Ya tienes el número copiado. Ahora abre la app de tu banco.</p>
-                <button id="open-bank-btn" class="btn btn-primary btn-block">
-                  <i class="fas fa-external-link-alt"></i> Abrir mi Banco / Bizum
-                </button>
-              </div>
-            </div>
-
-          </div>
-        </div>
-
-        <div class="modal-footer">
-          <button class="btn btn-biz-primary btn-block" id="confirm-bizum-btn">
-            Confirmar Pago Bizum
-          </button>
-          <button class="btn-link-gray btn-block modal-close-btn">Cancelar</button>
-        </div>
-      </div>
 
     </div>
   </div>

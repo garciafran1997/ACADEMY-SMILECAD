@@ -180,10 +180,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const regForm = document.getElementById('inscription-form');
   const formView = document.getElementById('registration-form-view');
-  const paymentView = document.getElementById('payment-view');
-
-  // To store data between steps
-  let lastFormData = {};
 
   // Move these to shared scope
   const courseSelect = document.getElementById('course-select');
@@ -228,7 +224,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   populateMonths();
 
-  if (regModal && regOpenBtns.length > 0 && regForm && formView && paymentView) {
+  if (regModal && regOpenBtns.length > 0 && regForm && formView) {
     const openRegModal = (e) => {
       e.preventDefault();
       console.log('Opening Registration Modal');
@@ -261,8 +257,6 @@ document.addEventListener('DOMContentLoaded', () => {
       // Reset views state
       formView.style.display = 'block';
       formView.style.opacity = '1';
-      paymentView.style.display = 'none';
-      paymentView.style.opacity = '0';
 
       regModal.style.display = 'flex';
       // Small delay to allow display flex to apply
@@ -295,7 +289,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Handle Form Submission
-    regForm.addEventListener('submit', (e) => {
+    regForm.addEventListener('submit', async (e) => {
       e.preventDefault();
       console.log('Form submission attempted');
 
@@ -306,10 +300,19 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
       }
 
-      console.log('Form is valid, showing Bizum view');
+      console.log('Form is valid, sending reservation notification');
+
+      // Find submit button for loading state
+      const submitBtn = regModal.querySelector('button[type="submit"]');
+      const originalText = submitBtn ? submitBtn.textContent : "Reservar Plaza";
+
+      if (submitBtn) {
+        submitBtn.textContent = "Procesando reserva...";
+        submitBtn.disabled = true;
+      }
 
       // Capture form data
-      lastFormData = {
+      const formData = {
         Nombre: regForm.name.value,
         Email: regForm.email.value,
         Telefono: regForm.phone.value,
@@ -317,118 +320,40 @@ document.addEventListener('DOMContentLoaded', () => {
         Mes: document.getElementById('month').value
       };
 
-      // Update Bizum concept dynamically before showing the view
-      const bizumConcept = document.getElementById('bizum-concept');
-      if (bizumConcept && courseSelect) {
-        const selectedCourse = courseSelect.options[courseSelect.selectedIndex].text;
-        bizumConcept.textContent = `Reserva ${selectedCourse}`;
-      }
-
-      // Simple switch without complex transitions to ensure visibility
-      formView.style.display = 'none';
-      paymentView.style.display = 'block';
-      setTimeout(() => {
-        paymentView.style.opacity = '1';
-      }, 50);
-    });
-
-    // Copy Bizum Number Logic (Shared helper)
-    const copyNumber = (button, visualFeedback = null) => {
-      const number = "607703199";
-      navigator.clipboard.writeText(number).then(() => {
-        if (visualFeedback) {
-          visualFeedback.style.display = 'block';
-          setTimeout(() => visualFeedback.style.display = 'none', 3000);
-        }
-
-        const icon = button.querySelector('i');
-        if (icon) {
-          const originalClass = icon.className;
-          icon.className = 'fas fa-check';
-          button.style.color = "#10b981";
-
-          setTimeout(() => {
-            icon.className = originalClass;
-            button.style.color = "";
-          }, 2000);
-        }
-      });
-    };
-
-    // Simplified Bizum Flow
-    const copyBtnMain = document.getElementById('copy-bizum-main');
-    const copyToast = document.getElementById('copy-toast');
-    const openBankBtn = document.getElementById('open-bank-btn');
-
-    if (copyBtnMain) {
-      copyBtnMain.addEventListener('click', () => {
-        const number = "607703199";
-        navigator.clipboard.writeText(number).then(() => {
-          if (copyToast) {
-            copyToast.style.display = 'block';
-            setTimeout(() => copyToast.style.display = 'none', 3000);
-          }
-
-          const icon = copyBtnMain.querySelector('i');
-          icon.className = 'fas fa-check';
-          setTimeout(() => { icon.className = 'fas fa-copy'; }, 2000);
+      try {
+        // Send to FormSubmit.co
+        const response = await fetch("https://formsubmit.co/ajax/academysmilecad@gmail.com", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json"
+          },
+          body: JSON.stringify({
+            subject: `NUEVA RESERVA: ${formData.Curso}`,
+            ...formData,
+            _honey: "", // Honeypot to prevent spam
+            _template: "table"
+          })
         });
-      });
-    }
 
-    if (openBankBtn) {
-      openBankBtn.addEventListener('click', (e) => {
-        e.preventDefault();
-        // There is no single universal Bizum app, but we can try to hint 
-        // Or simply remind them to open their usual bank app.
-        alert("¡Número copiado! Ahora abre la aplicación de tu banco (Santander, BBVA, CaixaBank, etc.) y pega el número en la sección de Bizum.");
-
-        // Try common bank schemes (optional, many banks differ)
-        window.location.href = "intent://#Intent;scheme=bizum;package=es.redsys.bizum;end";
-      });
-    }
-
-    // Confirm Bizum Button
-    const confirmBtn = document.getElementById('confirm-bizum-btn');
-    if (confirmBtn) {
-      confirmBtn.addEventListener('click', async () => {
-        const originalText = confirmBtn.textContent;
-        confirmBtn.textContent = "Notificando reserva...";
-        confirmBtn.disabled = true;
-
-        try {
-          // Send to FormSubmit.co
-          const response = await fetch("https://formsubmit.co/ajax/academysmilecad@gmail.com", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              "Accept": "application/json"
-            },
-            body: JSON.stringify({
-              subject: `NUEVA RESERVA: ${lastFormData.Curso}`,
-              ...lastFormData,
-              _honey: "", // Honeypot to prevent spam
-              _template: "table"
-            })
-          });
-
-          if (response.ok) {
-            console.log('FormSubmit success:', await response.json());
-            alert(`¡Reserva confirmada! Hemos enviado los detalles de tu pago y tus datos a academysmilecad@gmail.com. En breve nos pondremos en contacto contigo.`);
-            closeRegModal();
-          } else {
-            console.error('FormSubmit Error:', response.status, response.statusText);
-            throw new Error("Error en el envío");
-          }
-        } catch (error) {
-          console.error("Email Error:", error);
-          alert("Hubo un problema al enviar la notificación, pero tu intención de reserva ha sido registrada. Por favor, contacta por WhatsApp si no recibes noticias.");
+        if (response.ok) {
+          console.log('FormSubmit success:', await response.json());
+          alert(`¡Reserva solicitada con éxito!\nHemos recibido tus datos para el ${formData.Curso} (${formData.Mes}). En breve nos pondremos en contacto contigo por correo electrónico o teléfono para indicarte los pasos a seguir.`);
           closeRegModal();
-        } finally {
-          confirmBtn.textContent = originalText;
-          confirmBtn.disabled = false;
+        } else {
+          console.error('FormSubmit Error:', response.status, response.statusText);
+          throw new Error("Error en el envío");
         }
-      });
-    }
+      } catch (error) {
+        console.error("Email Error:", error);
+        alert("Hubo un problema al enviar la solicitud de reserva. Por favor, ponte en contacto con nosotros directamente por teléfono o WhatsApp.");
+        closeRegModal();
+      } finally {
+        if (submitBtn) {
+          submitBtn.textContent = originalText;
+          submitBtn.disabled = false;
+        }
+      }
+    });
   }
 });
