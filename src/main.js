@@ -137,14 +137,6 @@ document.addEventListener('DOMContentLoaded', () => {
   setupMobileMenu();
   generateTestimonials();
 
-  // Check if redirected from a successful reservation
-  const url = new URL(window.location.href);
-  if (url.searchParams.has('reserved')) {
-    alert("¡Reserva solicitada con éxito!\nHemos recibido tus datos. En breve nos pondremos en contacto contigo por correo electrónico o teléfono para indicarte los pasos a seguir.");
-    url.searchParams.delete('reserved');
-    window.history.replaceState({}, document.title, url.pathname + url.search);
-  }
-
   // Modal Logic (Generic function for reusability)
   const setupModal = (modalId, openBtnId) => {
     const modal = document.getElementById(modalId);
@@ -297,34 +289,69 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Handle Form Submission
-    regForm.addEventListener('submit', (e) => {
+    regForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
       console.log('Form submission attempted');
 
       // Ensure form is valid and show validation UI if not
       if (!regForm.checkValidity()) {
-        e.preventDefault();
         console.warn('Form validation failed');
         regForm.reportValidity();
         return;
       }
 
-      console.log('Form is valid, sending reservation notification');
+      console.log('Form is valid, sending reservation notification via EmailJS');
 
       // Find submit button for loading state
       const submitBtn = regModal.querySelector('button[type="submit"]');
+      const originalText = submitBtn ? submitBtn.textContent : "Reservar Plaza";
+
       if (submitBtn) {
         submitBtn.textContent = "Procesando reserva...";
         submitBtn.disabled = true;
       }
 
-      // Set dynamic subject for FormSubmit
-      const subjectInput = document.getElementById('form-subject');
-      if (subjectInput && courseSelect) {
-        const selectedCourse = courseSelect.options[courseSelect.selectedIndex].text;
-        subjectInput.value = `NUEVA RESERVA: ${selectedCourse}`;
+      const selectedCourse = courseSelect.options[courseSelect.selectedIndex].text;
+      const selectedMonth = document.getElementById('month').value;
+      const userName = regForm.Nombre.value;
+      const userEmail = regForm.Email.value;
+      const userPhone = regForm.Telefono.value;
+
+      const messageContent = `
+Nueva reserva de plaza para curso (AcademySmileCad):
+- Nombre: ${userName}
+- Email: ${userEmail}
+- Teléfono: ${userPhone}
+- Curso: ${selectedCourse}
+- Mes de inicio: ${selectedMonth}
+      `.trim();
+
+      try {
+        // Initialize and send with client's EmailJS service & credentials
+        await emailjs.init({
+          publicKey: 'v-P-T2Anln1robHSj',
+        });
+
+        await emailjs.send(
+          'service_zejjuxe',
+          'template_v6rgz0c',
+          {
+            email: userEmail,
+            message: messageContent
+          }
+        );
+
+        alert(`¡Reserva solicitada con éxito!\nHemos recibido tus datos para el ${selectedCourse} (${selectedMonth}). En breve nos pondremos en contacto contigo por correo electrónico o teléfono para indicarte los pasos a seguir.`);
+        closeRegModal();
+      } catch (error) {
+        console.error("EmailJS Error:", error);
+        alert(`Hubo un problema al enviar la solicitud de reserva: ${error.text || error.message || error}\n\nPor favor, ponte en contacto con nosotros directamente por teléfono o WhatsApp.`);
+      } finally {
+        if (submitBtn) {
+          submitBtn.textContent = originalText;
+          submitBtn.disabled = false;
+        }
       }
-      
-      // The form will submit naturally to FormSubmit.co and redirect to our _next URL.
     });
   }
 });
